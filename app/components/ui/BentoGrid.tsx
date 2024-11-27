@@ -1,6 +1,7 @@
 import React from "react";
 import { cn } from "@/utils/cn"; // Ensure this path is correct or adjust accordingly
 
+// BentoGrid Component
 export const BentoGrid = ({
   className,
   children,
@@ -11,15 +12,21 @@ export const BentoGrid = ({
   return (
     <div
       className={cn(
-        "grid md:auto-rows-[18rem] grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto",
+        "grid md:auto-rows-[8rem] grid-cols-2 md:grid-cols-2 gap-2 max-w-7xl mx-auto",
         className
       )}
+      style={{
+        background: "rgb(2,0,36)",
+        backgroundColor:
+          "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(0,0,0,1) 86%, rgba(0,212,255,1) 100%)",
+      }}
     >
       {children}
     </div>
   );
 };
 
+// BentoGridItem Component
 export const BentoGridItem = ({
   className,
   title,
@@ -27,13 +34,21 @@ export const BentoGridItem = ({
   header,
   icon,
   id,
+  img,
+  imgClassName,
+  titleClassName,
+  spareImg,
 }: {
   className?: string;
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
   header?: React.ReactNode;
   icon?: React.ReactNode;
-  id: number;
+  id?: number;
+  img?: string;
+  imgClassName?: string;
+  titleClassName?: string;
+  spareImg?: string;
 }) => {
   return (
     <div
@@ -46,7 +61,12 @@ export const BentoGridItem = ({
       <div className="group-hover/bento:translate-x-2 transition duration-200">
         {icon && <div>{icon}</div>}
         {title && (
-          <div className="font-sans font-bold text-neutral-600 dark:text-neutral-200 mb-2 mt-2">
+          <div
+            className={cn(
+              "font-sans font-bold text-neutral-600 dark:text-neutral-200 mb-2 mt-2",
+              titleClassName
+            )}
+          >
             {title}
           </div>
         )}
@@ -55,6 +75,23 @@ export const BentoGridItem = ({
             {description}
           </div>
         )}
+        {/* Image rendering logic */}
+        <div className="relative w-full h-full">
+          {img && (
+            <img
+              src={img}
+              alt={img}
+              className={cn(imgClassName, "object-cover object-center")}
+            />
+          )}
+          {spareImg && (
+            <img
+              src={spareImg}
+              alt={spareImg}
+              className={cn(imgClassName, "object-cover object-center")}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
